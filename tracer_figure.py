@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 #Choisir un lambda pour lequel le syst`eme est stable et un lambda pour lequel le systeme est instable et
 #tracer evolution du nombre de client connectes au serveur en fonction du temps.
 
-test_stable = exo1.ArrivalProcess(30.0,0.1,500)
-test_instable = exo1.ArrivalProcess(5.0,0.1,500)
+test_stable = exo1.ArrivalProcess(20.0,0.1,5000)
+test_instable = exo1.ArrivalProcess(30.0,0.1,5000)
 
 data_stable = test_stable.test()[0]
 data_instable = test_instable.test()[0]
@@ -28,7 +28,7 @@ ax2.set_title("Unstable Process")
 plt.show()
 
 
-plt.hist(histo1, 50, alpha=0.5, label='stable')
-plt.hist(histo2, 50, alpha=0.5, label='unstable')
+plt.hist(histo1, 25, alpha=0.5, label='stable')
+plt.hist(histo2, 25, alpha=0.5, label='unstable')
 plt.legend(loc='upper right')
 plt.show()
