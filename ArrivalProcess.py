@@ -37,6 +37,7 @@ class ArrivalProcess :
       #simulation
 
         liste = list()
+        liste_response = list()
 
         while not file_arrivee.empty():
             event = file_arrivee.get()
@@ -63,20 +64,21 @@ class ArrivalProcess :
                 print("Temps de reponse pour l'utilisateur "+ str(event[1].getId()) + " : " + '%6.3f' %  + elapsedtime+ " ms")
                 moyenne+= elapsedtime
                 state-=1
+                liste_response.append(elapsedtime)
 
             liste.append((event[0],state))
 
         print("Temps de reponse moyen :"+ str(moyenne/self.nb_users))
 
         data_in_array = np.array(liste)
-
+        response_in_array = np.array(liste_response)
         x,y = data_in_array.T
         #fig, ax = plt.subplots(1,1)
         #ax.set_ylim(0,20)
         #ax.plot(x, y, 'b-')
         #plt.show()
 
-        return(data_in_array)
+        return(data_in_array,response_in_array)
 
 
 
