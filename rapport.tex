@@ -98,14 +98,49 @@ La valeur $\lambda$ = 30 semble être une valeur de lambda stable. En dessous, l
 \caption{\label{fig:rf_taille_noeud} $\lambda$ = 10, $users$ = 5000}
 \end{figure}
 
-La différence est logique et s'explique par le fait que plus il y a d'espacement entre les différentes arrivées (donc plus $\lambda$ est grand), plus un utilisateur attend avant que sa requête ne soit traitée,car les arrivées s'enchâinent plus vite que le traitement des requêtes par le serveur. Lorsque $\lambda$ est faible ($\leq$ 20), les arrivées sont très proches dans le temps et le système commence à diverger.
+La différence est logique et s'explique par le fait que moins il y a d'espacement entre les différentes arrivées (donc plus $\lambda$ est petit), plus l'utilisateur attend avant que sa requête ne soit traitée,car les arrivées s'enchâinent plus vite que le traitement des requêtes par le serveur. Le système commence à diverger. Lorsque $\lambda$ est grand ($\leq$ 20), les arrivées sont plus éloignées dans le temps et le serveur a le temps d'éxecuter les requêtes des utilisateurs sans trop attendre. 
 
 \subsection{Question 4}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{3lambda.png}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 20,40,60, $users$ = 5000}
+\end{figure}
 
 
+\section{Exercice 2}
+\subsection{Question 1}
+\subsection{Question 2}
+\textit{Reprendre les questions de l’exercice 1 avec la distribution de Pareto. Quelles différences observez vous ?}
 
+\subsubsection{}
+Le test avec une distribution de Pareto nous montre des résultats assez similaires pour les valeurs instables. En revanche, pour des valeurs supposées stables ($\lambda$ = 100), on observe un pic de connexions simultanées (totalement aléatoire). Les figures ci-dessous nous montrent les résultats obtenus avec Pareto.
 
- 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{stableprocessquestion3pareto.png}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 100, $users$ = 5000, Pareto}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{unstablepareto.png}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 10, $users$ = 5000, Pareto}
+\end{figure}
+
+L'apparition de pics est une caractéristique de la distribution de Pareto. En effet, la loi de probabilité est telle que :
+
+\[\lim\limits_{x \to  \infty} \mathbb{P}(X > x+y | X > x) = 1\]
+
+Ce qui signifie ici que, aù delà d'un certain seuil, l'utilisateur a des chances d'attendre très longtemps. Ceci est réaliste dans la description de certains phénomènes en réseau, tels la congestion.
+
+\subsection{Question 4 (2)}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.50]{3lambdapareto.png}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 20,40,60, $users$ = 5000 Pareto}
+\end{figure}
+
 
 
 \end{document}

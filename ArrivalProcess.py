@@ -40,7 +40,7 @@ class ArrivalProcess :
 
 
 
-    def test(self):
+    def test(self,law=None,mode=1,shape=1):
       #initialisation
         i = 0
         arrive_date = 0
@@ -66,10 +66,10 @@ class ArrivalProcess :
         while not self.file_arrivee.empty():
             event = self.file_arrivee.get()
 
-            ##print("Current Time : "+ '%6.3f' % current_time + "ms")
+            #print("Current Time : "+ '%6.3f' % current_time + "ms")
             state = self.already_connected(liste_user,current_time)
             #print(str(state)+ " utilisateurs connectes ")
-          ##print("Utilisateurs connectes " + str(state))
+            #print("Utilisateurs connectes " + str(state))
 
             if isinstance(event[1],Type1.TraitementType1):
                 if current_time < event[1].getStartTime() :
@@ -98,7 +98,12 @@ class ArrivalProcess :
                     waiting_time = current_time - event[1].getStartTime()
 
                 #print("Requete 2 de l'utilisateur "+ str(event[1].getId()) +" a t = " + str(event[1].getStartTime()) + " ms. L'utilisateur a attendu " +'%6.3f' % waiting_time +" ms")
-                request2 = rd.expovariate(self.rate_param)
+                if law == "pareto" :
+                    request2 = (np.random.pareto(shape) + 1) * mode
+                else :
+                    request2 = rd.expovariate(self.rate_param)
+
+
                 event[1].setElapsedTime(event[1].getElapsedTime() + request2 + 6 + waiting_time)
                 elapsedtime = event[1].getElapsedTime()
                 #print("Le temps de cette requete de Type 2 est de "+'%6.3f' % request2 +" ms")
@@ -111,15 +116,14 @@ class ArrivalProcess :
 
             liste.append((event[0],state))
 
-        #print("Temps de reponse moyen :"+ str(moyenne/self.nb_users))
+        print("Temps de reponse moyen avec lambda = "+str(self.lambd)+" : "+ str(moyenne/self.nb_users) + " ms." )
 
         data_in_array = np.array(liste)
         response_in_array = np.array(liste_response)
 
         return(data_in_array,response_in_array)
 
-test = ArrivalProcess(7.0,0.1,40)
-test.test()
+
 
 
 
