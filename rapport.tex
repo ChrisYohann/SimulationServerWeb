@@ -84,21 +84,21 @@ Une liste des utilisateurs connectés est mise à jour à chaque itération. En 
 \subsection{Question 3}
 \textit{Pour quelles valeurs de $\lambda$ [10 ; 100] requêtes/secondes le système vous semble stable ? \\} 
 
-La valeur $\lambda$ = 20 semble être une valeur de lambda stable. Au delà, le système commence à saturer et le nombre d'utilisateurs en attente augmente de manière exponentielle. Les figures ci-dessous nous montrent la différence entre un système stable et un système instable.\\
+La valeur $\lambda$ = 30 semble être une valeur de lambda stable. En dessous, le système commence à saturer et le nombre d'utilisateurs en attente augmente de manière exponentielle. Les figures ci-dessous nous montrent la différence entre un système stable et un système instable.\\
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.50]{stableprocessquestion3.png}
-\caption{\label{fig:rf_taille_noeud} $\lambda$ = 20, $users$ = 5000}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 100, $users$ = 5000}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.50]{unstableprocessquestion3.png}
-\caption{\label{fig:rf_taille_noeud} $\lambda$ = 30, $users$ = 5000}
+\caption{\label{fig:rf_taille_noeud} $\lambda$ = 10, $users$ = 5000}
 \end{figure}
 
-La différence est logique et s'explique par le fait que moins il y a d'espacement entre les différentes arrivées (donc plus $\lambda$ est grand), plus un utilisateur attend avant que sa requête ne soit traitée,car les arrivées s'enchâinent plus vite que le traitement des requêtes par le serveur. Lorsque $\lambda$ est faible ($\leq$ 20), l'utilisateur attend peu avant de voir sa requête traitée.\\
+La différence est logique et s'explique par le fait que plus il y a d'espacement entre les différentes arrivées (donc plus $\lambda$ est grand), plus un utilisateur attend avant que sa requête ne soit traitée,car les arrivées s'enchâinent plus vite que le traitement des requêtes par le serveur. Lorsque $\lambda$ est faible ($\leq$ 20), les arrivées sont très proches dans le temps et le système commence à diverger.
 
 \subsection{Question 4}
 

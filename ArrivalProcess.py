@@ -55,7 +55,7 @@ class ArrivalProcess :
             liste_user.append((i,arrive_date))
             self.file_arrivee.put((arrive_date,t1))
             #print("Arrivee de l'utilisateur "+ str(i) +" : "+ str(arrive_date) + " ms")
-            arrive_date += rd.expovariate(self.lambd/1000)
+            arrive_date += rd.expovariate(1/self.lambd)
             i+=1
 
       #simulation

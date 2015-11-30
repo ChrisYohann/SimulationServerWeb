@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 #Choisir un lambda pour lequel le syst`eme est stable et un lambda pour lequel le systeme est instable et
 #tracer evolution du nombre de client connectes au serveur en fonction du temps.
 
-test_stable = exo1.ArrivalProcess(20.0,0.1,5000)
-test_instable = exo1.ArrivalProcess(30.0,0.1,5000)
+test_stable = exo1.ArrivalProcess(100.0,0.1,5000)
+test_instable = exo1.ArrivalProcess(10.0,0.1,5000)
 
 data_stable = test_stable.test()[0]
 data_instable = test_instable.test()[0]
