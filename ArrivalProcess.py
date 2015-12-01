@@ -7,7 +7,9 @@ import numpy as np
 import Queue as Q
 import scipy as sp
 import scipy.stats
-
+from math import pow
+from math import sqrt
+from math import floor
 
 
 
@@ -53,8 +55,16 @@ class ArrivalProcess :
         arrive_date = 0
         state = 0
         moyenne = 0
+        moyenne2 = 0
+        vrai_moyenne = 0
+        mediane = 0
+        ecart_type = 0
+        intervalle_68  = 0
+        intervalle_95  = 0
+        intervalle_997  = 0
         current_time = 0
         liste_user = list()
+        liste_mediane = list()
 
 
         while i<self.nb_users :
@@ -117,13 +127,33 @@ class ArrivalProcess :
                 #print("Temps de reponse pour l'utilisateur "+ str(event[1].getId()) + " : " + '%6.3f' %  + elapsedtime+ " ms")
                 current_time += request2 + 12
                 moyenne+= elapsedtime
+                liste_mediane.append(elapsedtime)
+                moyenne2 += pow(elapsedtime,2)
                 self.remove_with_id(liste_user,event[1].getId())
                 #state-=1
                 liste_response.append(elapsedtime)
+                vrai_moyenne = moyenne/self.nb_users
+                ecart_type = sqrt( (moyenne2/self.nb_users) - pow(vrai_moyenne,2) )
+                intervalle_68 = ecart_type/sqrt(self.nb_users)
+                intervalle_95 = 2*ecart_type/sqrt(self.nb_users)
+                intervalle_997 = 3* ecart_type/sqrt(self.nb_users)
 
             liste.append((event[0],state))
 
-        print("Temps de reponse moyen avec lambda = "+str(self.lambd)+" : "+ str(moyenne/self.nb_users) + " ms." )
+        print("Temps de reponse moyen avec lambda = "+str(self.lambd)+" : "+ str(vrai_moyenne) + " ms." )
+       #print("Ecart-type avec lambda = "+str(self.lambd)+" : "+ str(ecart_type)  )
+        print("Intervalle a 68  : " + str([vrai_moyenne-intervalle_68 , vrai_moyenne + intervalle_68]))
+        print("Intervalle a 95  : " + str([vrai_moyenne -intervalle_95 , vrai_moyenne + intervalle_95]))
+        print("Intervalle a  99.7  : " + str([vrai_moyenne - intervalle_997 , vrai_moyenne + intervalle_997]))
+        liste_mediane.sort()
+        if self.nb_users%2 == 1 :
+            mediane = liste_mediane[floor(self.nb_users/2)]
+        else :
+            mediane = (liste_mediane[self.nb_users/2] + liste_mediane[(self.nb_users+1)/2])
+
+        print ("La mediane vaut : " + str(mediane))
+        print( "------------------------------------------------------------------------------------------")
+
 
         data_in_array = np.array(liste)
         response_in_array = np.array(liste_response)
